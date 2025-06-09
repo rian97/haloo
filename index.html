@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cihuy</title>
+  <style>
+    @font-face {
+      font-family: 'Aurora Pro';
+      src: url('AuroraPro-Regular.woff2') format('woff2');
+    }
+
+    /* Video Background */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .love {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+      z-index: 0;
+    }
+
+    .love::before, .love::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .love::before { top: -10px; left: 0; }
+    .love::after { left: -10px; top: 0; }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(45deg) scale(0.5); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg) scale(1.2); opacity: 0; }
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      z-index: 1;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .doll-img {
+      width: 100px;
+      margin-right: 20px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    #playButton {
+      position: absolute;
+      bottom: 30px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video id="bgVideo" autoplay loop muted playsinline>
+    <source src="sa.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video.
+  </video>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="bila kau.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <!-- Tombol Play -->
+  <button id="playButton">pencet</button>
+
+  <!-- Script -->
+  <script>
+    const total = 50;
+    for (let i = 0; i < total; i++) {
+      const love = document.createElement('div');
+      love.className = 'love';
+      love.style.left = Math.random() * 100 + 'vw';
+      love.style.animationDelay = (Math.random() * 5) + 's';
+      love.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(love);
+    }
+
+    // Play musik saat tombol diklik
+    const playButton = document.getElementById('playButton');
+    const bgMusic = document.getElementById('bgMusic');
+    playButton.addEventListener('click', () => {
+      bgMusic.play();
+      playButton.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
